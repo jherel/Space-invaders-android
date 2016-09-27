@@ -45,6 +45,7 @@ public class Bullet {
         isActive = false;
     }
 
+
     public float getImpactPointY(){
         if (heading == DOWN){
             return y + height;
@@ -54,6 +55,7 @@ public class Bullet {
 
     }
     public boolean shoot(float startX, float startY, int direction) {
+
         if (!isActive) {
             x = startX;
             y = startY;
@@ -63,7 +65,7 @@ public class Bullet {
         }
 
         // Bullet already active
-        return true;
+        return false;
     }
 
     public void update(long fps){

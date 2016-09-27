@@ -62,7 +62,7 @@ public class PlayerShip {
                 false);
 
         // How fast is the spaceship in pixels per second
-        shipSpeed = 350;
+        shipSpeed = 600;
     }
     public RectF getRect(){
         return rect;
@@ -76,6 +76,10 @@ public class PlayerShip {
 
     public float getX(){
         return x;
+    }
+
+    public float getHeight(){
+      return height;
     }
 
     public float getLength(){
