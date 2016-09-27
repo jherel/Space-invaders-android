@@ -412,7 +412,7 @@ public class SpaceInvadersView extends SurfaceView implements Runnable{
             canvas = ourHolder.lockCanvas();
 
             // Draw the background color
-            canvas.drawColor(Color.argb(128, 71, 71, 107));
+            canvas.drawColor(Color.argb(255, 71, 71, 107));
 
             // Choose the brush color for drawing
             paint.setColor(Color.argb(255,  255, 255, 255));
