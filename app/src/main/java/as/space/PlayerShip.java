@@ -40,13 +40,13 @@ public class PlayerShip {
     // This the the constructor method
     // When we create an object from this class we will pass
     // in the screen width and height
-    public PlayerShip(Context context, int screenX, int screenY){
+    public PlayerShip(Context context, int screenX, int screenY) {
 
         // Initialize a blank RectF
         rect = new RectF();
 
-        length = screenX/10;
-        height = screenY/10;
+        length = screenX / 10;
+        height = screenY / 10;
 
         // Start ship in roughly the screen centre
         x = screenX / 2;
@@ -64,44 +64,43 @@ public class PlayerShip {
         // How fast is the spaceship in pixels per second
         shipSpeed = 600;
     }
-    public RectF getRect(){
+
+    public RectF getRect() {
         return rect;
     }
 
     // This is a getter method to make the rectangle that
     // defines our paddle available in BreakoutView class
-    public Bitmap getBitmap(){
+    public Bitmap getBitmap() {
         return bitmap;
     }
 
-    public float getX(){
+    public float getX() {
         return x;
     }
 
-    public float getHeight(){
-      return height;
+    public float getHeight() {
+        return height;
     }
 
-    public float getLength(){
+    public float getLength() {
         return length;
     }
 
     // This method will be used to change/set if the paddle is going left, right or nowhere
-    public void setMovementState(int state){
+    public void setMovementState(int state) {
         shipMoving = state;
     }
+
     // This update method will be called from update in SpaceInvadersView
     // It determines if the player ship needs to move and changes the coordinates
     // contained in x if necessary
-    public void update(long fps){
-        if(shipMoving == LEFT){
+    public void update(long fps) {
+        if (shipMoving == LEFT && x >= 1) {
             x = x - shipSpeed / fps;
-        }
-
-        if(shipMoving == RIGHT){
+        } else if (shipMoving == RIGHT && x <= length * 9) {
             x = x + shipSpeed / fps;
         }
-
         // Update rect which is used to detect hits
         rect.top = y;
         rect.bottom = y + height;

@@ -19,7 +19,7 @@ public class Bullet {
 
     // Going nowhere
     int heading = -1;
-    float speed =  950;
+    float speed = 950;
 
     private int width = 2;
     private int height;
@@ -28,32 +28,34 @@ public class Bullet {
 
     public Bullet(int screenY) {
 
-        height = screenY/40;
+        height = screenY / 40;
         isActive = false;
 
         rect = new RectF();
     }
-    public RectF getRect(){
-        return  rect;
+
+    public RectF getRect() {
+        return rect;
     }
 
-    public boolean getStatus(){
+    public boolean getStatus() {
         return isActive;
     }
 
-    public void setInactive(){
+    public void setInactive() {
         isActive = false;
     }
 
 
-    public float getImpactPointY(){
-        if (heading == DOWN){
+    public float getImpactPointY() {
+        if (heading == DOWN) {
             return y + height;
-        }else{
-            return  y;
+        } else {
+            return y;
         }
 
     }
+
     public boolean shoot(float startX, float startY, int direction) {
 
         if (!isActive) {
@@ -68,12 +70,12 @@ public class Bullet {
         return false;
     }
 
-    public void update(long fps){
+    public void update(long fps) {
 
         // Just move up or down
-        if(heading == UP){
+        if (heading == UP) {
             y = y - speed / fps;
-        }else{
+        } else {
             y = y + speed / fps;
         }
 

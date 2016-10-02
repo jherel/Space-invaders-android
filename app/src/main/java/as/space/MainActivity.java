@@ -1,5 +1,6 @@
 package as.space;
 //Comentario de prueba - branch desarrollo
+
 import android.app.Activity;
 import android.graphics.Point;
 import android.os.Bundle;
@@ -15,7 +16,7 @@ public class MainActivity extends Activity {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        spaceInvadersView = new SpaceInvadersView(this,size.x,size.y);
+        spaceInvadersView = new SpaceInvadersView(this, size.x, size.y);
         setContentView(spaceInvadersView);
 
 
