@@ -19,7 +19,7 @@ public class Bullet {
 
     // Going nowhere
     int heading = -1;
-    float speed =  400;
+    float speed =  950;
 
     private int width = 2;
     private int height;

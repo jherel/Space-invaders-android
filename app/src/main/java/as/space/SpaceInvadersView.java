@@ -50,7 +50,7 @@ public class SpaceInvadersView extends SurfaceView implements Runnable{
     private PlayerShip playerShip;
 
     // The player's bullet
-    private Bullet[] bullet = new Bullet[200];
+    private Bullet bullet;
 
     // The invaders bullets
     private Bullet[] invadersBullets = new Bullet[200];
@@ -153,9 +153,7 @@ public class SpaceInvadersView extends SurfaceView implements Runnable{
         playerShip = new PlayerShip(context, screenX, screenY);
 
         // Prepare the players bullet
-        for (int i = 0; i< bullet.length; i++){
-            bullet[i] = new Bullet(screenY);
-        }
+            bullet = new Bullet(screenY);
 
         // Initialize the invadersBullets array
         for(int i = 0; i < invadersBullets.length; i++){
@@ -203,7 +201,7 @@ public class SpaceInvadersView extends SurfaceView implements Runnable{
             // time animations and more.
             timeThisFrame = System.currentTimeMillis() - startFrameTime;
             if (timeThisFrame >= 1) {
-                fps = 2000 / timeThisFrame;
+                fps = 1000 / timeThisFrame;
             }
 
 
@@ -307,11 +305,18 @@ public class SpaceInvadersView extends SurfaceView implements Runnable{
         /*if(bullet.getStatus()){
             bullet.update(fps);
         }*/
-        for(int i = 0; i < bullet.length; i++) {
-            if (bullet[i].getStatus()) {
-                bullet[i].update(fps);
+
+            if (bullet.getStatus()) {
+                bullet.update(fps);
             }
+
+        if(playerShip.getX()>screenX-playerShip.getLength()){
+            playerShip.setMovementState(playerShip.STOPPED);
         }
+        if(playerShip.getX()<0){
+            playerShip.setMovementState(playerShip.STOPPED);
+        }
+
 
         // Update all the invaders bullets if active
         /*for(int i = 0; i < invadersBullets.length; i++){
@@ -322,10 +327,9 @@ public class SpaceInvadersView extends SurfaceView implements Runnable{
 
 
         // Has the player's bullet hit the top of the screen
-        for ( int i = 0; i<bullet.length; i++  ) {
-            if (bullet[i].getImpactPointY() < 0) {
-                bullet[i].setInactive();
-            }
+            if (bullet.getImpactPointY() < 0) {
+                bullet.setInactive();
+
         }
 
         // Has an invaders bullet hit the bottom of the screen
@@ -450,11 +454,11 @@ public class SpaceInvadersView extends SurfaceView implements Runnable{
             }*/
 
             // Draw the players bullet if active
-            for ( int i=0; i< bullet.length;i++  ) {
-                if (bullet[i].getStatus()) {
-                    canvas.drawRect(bullet[i].getRect(), paint);
+
+                if (bullet.getStatus()) {
+                    canvas.drawRect(bullet.getRect(), paint);
                 }
-            }
+
 
 
             // Draw the invaders bullets
@@ -472,7 +476,7 @@ public class SpaceInvadersView extends SurfaceView implements Runnable{
             // Change the brush color
             paint.setColor(Color.argb(255,  57, 230, 0));
             paint.setTextSize(80);
-            canvas.drawText("Score: " + score + "   Lives: " + lives,40,80, paint);
+            //canvas.drawText("Score: " + score + "   Lives: " + lives, screenX - 700 ,80, paint);
 
             // Draw everything to the screen
             ourHolder.unlockCanvasAndPost(canvas);
@@ -507,41 +511,31 @@ public class SpaceInvadersView extends SurfaceView implements Runnable{
 
             // Player has touched the screen
             case MotionEvent.ACTION_DOWN:
-
                 paused = false;
-
                 if(motionEvent.getY() > screenY - screenY / 8) {
-                    if (motionEvent.getX() > screenX - screenX / 4) {
-                        playerShip.setMovementState(playerShip.RIGHT);
-
-                    } else if(!(motionEvent.getX() > screenX / 4)){
-                        playerShip.setMovementState(playerShip.LEFT);
-
-                    }
-
+                        if (motionEvent.getX() > screenX - screenX / 4) {
+                            if(!(playerShip.getX() > screenX - playerShip.getLength())){
+                                playerShip.setMovementState(playerShip.RIGHT);
+                            }
+                        } else if (!(motionEvent.getX() > screenX / 4)) {
+                            if (!(playerShip.getX() < 0)) {
+                                playerShip.setMovementState(playerShip.LEFT);
+                            }
+                        }
                 }
-
-
                 if(motionEvent.getY() < screenY - screenY / 8) {
                     // Shots fired
-                    for ( int i = 0; i< bullet.length; i++) {
-                        if (bullet[i].shoot(playerShip.getX() +
-                                playerShip.getLength() / 2, screenY-100, bullet[i].UP)) {
-                            //soundPool.play(shootID, 1, 1, 0, 0, 1);
-                            i++;
-                        }
+                    if (bullet.
+                            shoot(playerShip.getX() + playerShip.getLength() / 2, screenY-130, bullet.UP)) {
+                        //soundPool.play(shootID, 1, 1, 0, 0, 1);
                     }
                 }
                 break;
-
             // Player has removed finger from screen
             case MotionEvent.ACTION_UP:
                 playerShip.setMovementState(playerShip.STOPPED);
                 break;
         }
-
         return true;
     }
-
-
 }
