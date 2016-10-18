@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.Display;
 
 public class MainActivity extends Activity {
-//
+
     SpaceInvadersView spaceInvadersView;
 
     @Override
