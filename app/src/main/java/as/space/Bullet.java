@@ -28,7 +28,7 @@ public class Bullet {
 
     public Bullet(int screenY) {
 
-        height = screenY / 40;
+        height = screenY / 20;
         isActive = false;
 
         rect = new RectF();

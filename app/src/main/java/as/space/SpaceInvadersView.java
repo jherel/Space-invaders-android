@@ -2,6 +2,8 @@ package as.space;
 
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -35,6 +37,7 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
 
     // A Canvas and a Paint object
     private Canvas canvas;
+
     private Paint paint;
 
     // This variable tracks the game frame rate
@@ -60,6 +63,9 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
     // When did we last play a menacing sound
     private long lastMenaceTime = System.currentTimeMillis();
 
+    Bitmap background = BitmapFactory.decodeResource(getResources(), R.drawable.backgroun_d);
+
+
     // When the we initialize (call new()) on gameView
     // This special constructor method runs
     public SpaceInvadersView(Context context, int x, int y) {
@@ -78,6 +84,8 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
 
         screenX = x;
         screenY = y;
+
+        background = resizeImage(background, screenX ,screenY);
 
         prepareLevel();
     }
@@ -140,7 +148,8 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
             canvas = ourHolder.lockCanvas();
 
             // Draw the background color
-            canvas.drawColor(Color.argb(255, 71, 71, 107));
+            //canvas.drawColor(Color.argb(255, 0, 0, 0));
+            canvas.drawBitmap(background, 0, 0, null);
 
 
             // Choose the brush color for drawing
@@ -213,5 +222,43 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
                 break;
         }
         return true;
+    }
+    public Bitmap resizeImage(Bitmap image,int maxWidth, int maxHeight)
+    {
+        Bitmap resizedImage = null;
+        try {
+            int imageHeight = image.getHeight();
+
+
+            if (imageHeight > maxHeight)
+                imageHeight = maxHeight;
+            int imageWidth = (imageHeight * image.getWidth())
+                    / image.getHeight();
+
+            if (imageWidth > maxWidth) {
+                imageWidth = maxWidth;
+                imageHeight = (imageWidth * image.getHeight())
+                        / image.getWidth();
+            }
+
+            if (imageHeight > maxHeight)
+                imageHeight = maxHeight;
+            if (imageWidth > maxWidth)
+                imageWidth = maxWidth;
+
+
+            resizedImage = Bitmap.createScaledBitmap(image, imageWidth,
+                    imageHeight, true);
+        } catch (OutOfMemoryError e) {
+
+            e.printStackTrace();
+        }catch(NullPointerException e)
+        {
+            e.printStackTrace();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resizedImage;
     }
 }
