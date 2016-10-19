@@ -5,18 +5,12 @@
     android:layout_height="match_parent"
     android:weightSum="1">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/boton_start"
-        android:layout_weight="0.28"
-        android:background="@drawable/startinvaders"/>
-
     <pl.droidsonroids.gif.GifImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/ico_cargando"
-        android:background="@android:color/darker_gray"
+        android:src="@drawable/pressstart_invaders_guay"
+        android:background="@android:color/black"
+        android:id="@+id/gifStart"
         />
 
 </LinearLayout>

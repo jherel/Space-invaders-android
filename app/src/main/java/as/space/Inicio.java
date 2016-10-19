@@ -2,9 +2,13 @@ package as.space;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import pl.droidsonroids.gif.GifImageButton;
+import pl.droidsonroids.gif.GifImageView;
 
 import static as.space.R.layout.pantalla_inicio;
 
@@ -13,13 +17,14 @@ import static as.space.R.layout.pantalla_inicio;
  */
 
 public class Inicio extends Activity {
-    Button btnStart;
+    GifImageView btnStart;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(pantalla_inicio);
 
-        btnStart = (Button) findViewById(R.id.boton_start);
+        btnStart = (GifImageView) findViewById(R.id.gifStart);
 
         btnStart.setOnClickListener(new View.OnClickListener() {
 

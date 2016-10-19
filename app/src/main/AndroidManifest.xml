@@ -9,11 +9,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:screenOrientation="landscape">
-        <activity android:name=".Inicio">
+        <activity android:name=".Cargando">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity android:name=".Inicio">
+            <intent-filter>
+                <action android:name="as.space.INICIO" />
+
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity">
