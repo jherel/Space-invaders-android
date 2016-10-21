@@ -1,6 +1,11 @@
 package as.space;
 
+import android.content.res.AssetFileDescriptor;
 import android.graphics.RectF;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
+import android.os.ParcelFileDescriptor;
 import android.view.MotionEvent;
 
 /**
@@ -10,8 +15,8 @@ import android.view.MotionEvent;
 public class Bullet {
     private float x;
     private float y;
-
     private RectF rect;
+
 
     // Which way is it shooting
     public final int UP = 0;
@@ -57,6 +62,7 @@ public class Bullet {
     }
 
     public boolean shoot(float startX, float startY, int direction) {
+
 
         if (!isActive) {
             x = startX;

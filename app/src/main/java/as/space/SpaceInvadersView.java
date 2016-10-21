@@ -8,7 +8,9 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.media.AudioAttributes;
 import android.media.AudioManager;
+import android.os.Build;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -72,7 +74,7 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
     private SoundPool soundPool;
     private int playerExplodeID = -1;
     private int invaderExplodeID = -1;
-    private int shootID = -1;
+    private int shootID;
     private int damageShelterID = -1;
     private int uhID = -1;
     private int ohID = -1;
@@ -82,6 +84,7 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
     private boolean uhOrOh;
     // When did we last play a menacing sound
     private long lastMenaceTime = System.currentTimeMillis();
+
 
     Bitmap background = BitmapFactory.decodeResource(getResources(), R.drawable.backgroun_d);
 
@@ -104,6 +107,25 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
 
         screenX = x;
         screenY = y;
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            AudioAttributes aAttributes = new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                    .setUsage(AudioAttributes.USAGE_GAME)
+                    .build();
+
+            soundPool = new SoundPool.Builder()
+                    .setMaxStreams(20)
+                    .setAudioAttributes(aAttributes)
+                    .build();
+        }else{
+            soundPool = new SoundPool(10,AudioManager.STREAM_MUSIC,1);
+        }
+
+        shootID = soundPool.load(context,R.raw.shoot,1);
+
+
+
 
         background = resizeImage(background, screenX ,screenY);
 
@@ -334,9 +356,13 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
                 }
                 if (motionEvent.getY() < screenY - screenY / 8) {
                     // Shots fired
+
+
+                    //soundPool.play(shootID,1,1,1,0,1);
+
                     if (bullet.
                             shoot(playerShip.getX() + playerShip.getLength() / 2, screenY - 130, bullet.UP)) {
-                        //soundPool.play(shootID, 1, 1, 0, 0, 1);
+                            soundPool.play(shootID, 1, 1, 1, 0, 1); // codigo anterior
                     }
                 }
                 break;
