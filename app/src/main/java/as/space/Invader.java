@@ -58,7 +58,7 @@ public class Invader {
 
         // Initialize the bitmap
         bitmap1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.invader_1);
-        bitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.invader_1);
+        bitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.invader_2);
 
         // stretch the first bitmap to a size appropriate for the screen resolution
         bitmap1 = Bitmap.createScaledBitmap(bitmap1,
@@ -129,7 +129,9 @@ public class Invader {
             shipMoving = LEFT;
         }
 
-        y = y + height;
+        //Invaders's block down 1 row (invader's height)
+        //y = y + height;
+
 
         shipSpeed = shipSpeed * 1.18f;
     }

@@ -182,14 +182,67 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
             if (timeThisFrame >= 1) {
                 fps = 1000 / timeThisFrame;
             }
+
+            if (!paused) {
+                if ((startFrameTime - lastMenaceTime) > menaceInterval) {
+                    if (uhOrOh) {
+                        // Play Uh
+                        //soundPool.play(uhID, 1, 1, 0, 0, 1);
+
+                    } else {
+                        // Play Oh
+                        //soundPool.play(ohID, 1, 1, 0, 0, 1);
+                    }
+
+                    // Reset the last menace time
+                    lastMenaceTime = System.currentTimeMillis();
+                    // Alter value of uhOrOh
+                    uhOrOh = !uhOrOh;
+                }
+            }
         }
     }
 
     private void update() {
         // Did an invader bump into the side of the screen
         boolean bumped = false;
-        if(bumped){
 
+        // Has the player lost
+
+        // Move the player's ship
+        playerShip.update(fps);
+
+
+        // Update all the invaders if visible
+        for(int i = 0; i < numInvaders; i++){
+            if(invaders[i].getVisibility()) {
+                // Move the next invader
+                invaders[i].update(fps);
+                // Does he want to take a shot?
+                if(invaders[i].takeAim(playerShip.getX(), playerShip.getLength())){
+                    // If so try and spawn a bullet
+                    if(invadersBullets[nextBullet].shoot(invaders[i].getX() + invaders[i].getLength() / 2, invaders[i].getY(), bullet.DOWN)) {
+                        // Shot fired
+                        // Prepare for the next shot
+                        nextBullet++;
+                        // Loop back to the first one if we have reached the last
+                        if (nextBullet == maxInvaderBullets) {
+                            // This stops the firing of another bullet until one completes its journey
+                            // Because if bullet 0 is still active shoot returns false.
+                            nextBullet = 0;
+                        }
+                    }
+                }
+                // If that move caused them to bump the screen change bumped to true
+                if (invaders[i].getX() > screenX - invaders[i].getLength()
+                        || invaders[i].getX() < 0){
+                    bumped = true;
+                }
+            }
+        }
+
+        // Did an invader bump into the edge of the screen
+        if(bumped){
             // Move all the invaders down and change direction
             for(int i = 0; i < numInvaders; i++){
                 invaders[i].dropDownAndReverse();
@@ -204,65 +257,29 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
             menaceInterval = menaceInterval - 80;
         }
 
-        // Has the player lost
-
-
-        // Move the player's ship
-        playerShip.update(fps);
-
         //Update the player bullet
         if (bullet.getStatus()) {
             bullet.update(fps);
         }
+/*
         // Update all the invaders bullets if active
         for(int i = 0; i < invadersBullets.length; i++){
             if(invadersBullets[i].getStatus()) {
                 invadersBullets[i].update(fps);
             }
-        }
+
+}*/
 
         // Has the player's bullet hit the top of the screen
         if (bullet.getImpactPointY() < 0) {
             bullet.setInactive();
         }
-        // Update all the invaders if visible
-        for(int i = 0; i < numInvaders; i++){
 
-            if(invaders[i].getVisibility()) {
-                // Move the next invader
-                invaders[i].update(fps);
-
-                // Does he want to take a shot?
-                if(invaders[i].takeAim(playerShip.getX(),
-                        playerShip.getLength())){
-
-                    // If so try and spawn a bullet
-                    if(invadersBullets[nextBullet].shoot(invaders[i].getX()
-                                    + invaders[i].getLength() / 2,
-                            invaders[i].getY(), bullet.DOWN)) {
-
-                        // Shot fired
-                        // Prepare for the next shot
-                        nextBullet++;
-
-                        // Loop back to the first one if we have reached the last
-                        if (nextBullet == maxInvaderBullets) {
-                            // This stops the firing of another bullet until one completes its journey
-                            // Because if bullet 0 is still active shoot returns false.
-                            nextBullet = 0;
-                        }
-                    }
-                }
-
-                // If that move caused them to bump the screen change bumped to true
-                if (invaders[i].getX() > screenX - invaders[i].getLength()
-                        || invaders[i].getX() < 0){
-
-                    bumped = true;
-
-                }
+        // Has an invaders bullet hit the bottom of the screen
+        for(int i = 0; i < invadersBullets.length; i++){
+            if(invadersBullets[i].getImpactPointY() > screenY){
+                invadersBullets[i].setInactive();
             }
-
         }
     }
 
@@ -302,12 +319,12 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
 
             // Draw the invaders bullets
 
-            // Update all the invader's bullets if active
+           /* // Update all the invader's bullets if active
             for(int i = 0; i < invadersBullets.length; i++){
                 if(invadersBullets[i].getStatus()) {
                     canvas.drawRect(invadersBullets[i].getRect(), paint);
                 }
-            }
+            }*/
 
             ourHolder.unlockCanvasAndPost(canvas);
         }
@@ -356,10 +373,7 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
                 }
                 if (motionEvent.getY() < screenY - screenY / 8) {
                     // Shots fired
-
-
                     //soundPool.play(shootID,1,1,1,0,1);
-
                     if (bullet.
                             shoot(playerShip.getX() + playerShip.getLength() / 2, screenY - 130, bullet.UP)) {
                             soundPool.play(shootID, 1, 1, 1, 0, 1); // codigo anterior
