@@ -3,6 +3,7 @@ package as.space;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.media.AudioAttributes;
 import android.os.Bundle;
 
 import static as.space.R.layout.pantalla_carga;
@@ -16,6 +17,7 @@ public class Cargando extends Activity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setVolumeControlStream(AudioAttributes.CONTENT_TYPE_MUSIC);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         setContentView(pantalla_carga);
 

@@ -73,7 +73,7 @@ public class Invader {
                 false);
 
         // How fast is the invader in pixels per second
-        shipSpeed = 40;
+        shipSpeed = 80;
     }
     public void setInvisible(){
         isVisible = false;
@@ -128,10 +128,8 @@ public class Invader {
         }else{
             shipMoving = LEFT;
         }
-
         //Invaders's block down 1 row (invader's height)
-        //y = y + height;
-
+        y = y + height;
 
         shipSpeed = shipSpeed * 1.18f;
     }

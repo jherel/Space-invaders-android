@@ -22,8 +22,6 @@ public class MainActivity extends Activity {
         display.getSize(size);
         spaceInvadersView = new SpaceInvadersView(this, size.x, size.y,this);
         setContentView(spaceInvadersView);
-
-
     }
 
     @Override

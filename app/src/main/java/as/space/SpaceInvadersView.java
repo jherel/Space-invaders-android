@@ -24,10 +24,6 @@ import java.io.IOException;
 
 public class SpaceInvadersView extends SurfaceView implements Runnable {
 
-
-
-
-
     Context context;
 
     // This is our thread
@@ -84,6 +80,11 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
     private int damageShelterID = -1;
     private int uhID = -1;
     private int ohID = -1;
+
+    //Score
+
+    //Lives
+
     // How menacing should the sound be?
     private long menaceInterval = 1000;
     // Which menace sound should play next
@@ -129,8 +130,6 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
         }
 
         shootID = soundPool.load(context,R.raw.shoot,1);
-
-
 
 
         background = resizeImage(background, screenX ,screenY);
@@ -212,12 +211,10 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
     private void update() {
         // Did an invader bump into the side of the screen
         boolean bumped = false;
-
         // Has the player lost
-
+        boolean lost = false;
         // Move the player's ship
         playerShip.update(fps);
-
 
         // Update all the invaders if visible
         for(int i = 0; i < numInvaders; i++){
@@ -246,18 +243,24 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
                 }
             }
         }
+/*
+        // Update all the invaders bullets if active
+        for(int i = 0; i < invadersBullets.length; i++){
+            if(invadersBullets[i].getStatus()) {
+                invadersBullets[i].update(fps);
+            }
 
-        // Did an invader bump into the edge of the screen
+}*/
+
         if(bumped){
             // Move all the invaders down and change direction
             for(int i = 0; i < numInvaders; i++){
                 invaders[i].dropDownAndReverse();
                 // Have the invaders landed
                 if(invaders[i].getY() > screenY - screenY / 10){
-                    //lost = true;
+                    lost = true;
                 }
             }
-
             // Increase the menace level
             // By making the sounds more frequent
             menaceInterval = menaceInterval - 80;
@@ -267,14 +270,6 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
         if (bullet.getStatus()) {
             bullet.update(fps);
         }
-/*
-        // Update all the invaders bullets if active
-        for(int i = 0; i < invadersBullets.length; i++){
-            if(invadersBullets[i].getStatus()) {
-                invadersBullets[i].update(fps);
-            }
-
-}*/
 
         // Has the player's bullet hit the top of the screen
         if (bullet.getImpactPointY() < 0) {
@@ -287,6 +282,39 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
                 invadersBullets[i].setInactive();
             }
         }
+        // Has the player's bullet hit an invader
+        if(bullet.getStatus()) {
+            for (int i = 0; i < numInvaders; i++) {
+                if (invaders[i].getVisibility()) {
+                    if ((RectF.intersects(bullet.getRect(), invaders[i].getRect()))&&(numInvaders < 1)) {
+                        invaders[i].setInvisible();
+                        //soundPool.play(invaderExplodeID, 1, 1, 0, 0, 1);
+                        bullet.setInactive();
+                        prepareLevel();
+                        /*score = score + 10;
+
+                        // Has the player won
+                        if(score == numInvaders * 10){
+                            paused = true;
+                            score = 0;
+                            lives = 3;
+                            prepareLevel();
+
+                        }
+                        */
+                    }
+                    else if(RectF.intersects(bullet.getRect(), invaders[i].getRect())){
+                        invaders[i].setInvisible();
+                        bullet.setInactive();
+                    }
+                }
+            }
+        }
+        // Did an invader bump into the edge of the screen
+        if(lost){
+            prepareLevel();
+        }
+
     }
 
     private void draw() {
