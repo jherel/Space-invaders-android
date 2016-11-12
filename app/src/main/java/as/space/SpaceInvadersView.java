@@ -1,5 +1,6 @@
 package as.space;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
@@ -11,6 +12,7 @@ import android.graphics.RectF;
 import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -21,6 +23,10 @@ import android.content.res.AssetManager;
 import java.io.IOException;
 
 public class SpaceInvadersView extends SurfaceView implements Runnable {
+
+
+
+
 
     Context context;
 
@@ -91,13 +97,13 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
 
     // When the we initialize (call new()) on gameView
     // This special constructor method runs
-    public SpaceInvadersView(Context context, int x, int y) {
+    public SpaceInvadersView(Context context, int x, int y, Activity activity) {
 
         // The next line of code asks the
         // SurfaceView class to set up our object.
         // How kind.
         super(context);
-
+        activity.setVolumeControlStream(AudioManager.STREAM_MUSIC);
         // Make a globally available copy of the context so we can use it in another method
         this.context = context;
 
@@ -111,7 +117,7 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             AudioAttributes aAttributes = new AudioAttributes.Builder()
                     .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                    .setUsage(AudioAttributes.USAGE_GAME)
+                    .setUsage(AudioAttributes.USAGE_MEDIA)
                     .build();
 
             soundPool = new SoundPool.Builder()
@@ -377,6 +383,7 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
                     if (bullet.
                             shoot(playerShip.getX() + playerShip.getLength() / 2, screenY - 130, bullet.UP)) {
                             soundPool.play(shootID, 1, 1, 1, 0, 1); // codigo anterior
+
                     }
                 }
                 break;
