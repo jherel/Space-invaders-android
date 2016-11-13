@@ -10,9 +10,7 @@ import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 
-import pl.droidsonroids.gif.GifImageButton;
 import pl.droidsonroids.gif.GifImageView;
 
 import static as.space.R.layout.pantalla_inicio;
@@ -24,7 +22,6 @@ import static as.space.R.layout.pantalla_inicio;
 public class Inicio extends Activity {
     GifImageView btnStart;
     SoundPool spInicio;
-
     MediaPlayer mediaPlayer;
 
     int startGameID;
@@ -70,7 +67,6 @@ public class Inicio extends Activity {
         startGameID = spInicio.load(this,R.raw.playerexplode,1);
 
 
-
         btnStart.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -78,11 +74,10 @@ public class Inicio extends Activity {
                 spInicio.play(startGameID,1,1,1,0,1);
                 Intent iniciointent = new Intent(Inicio.this, MainActivity.class);
                 startActivity(iniciointent);
+                System.exit(0);
             }
 
 
         });
-
-
     }
 }

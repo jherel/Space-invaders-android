@@ -2,6 +2,7 @@ package as.space;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -312,9 +313,16 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
         }
         // Did an invader bump into the edge of the screen
         if(lost){
-            prepareLevel();
+            gameover();
+            System.exit(0);
+            //prepareLevel();
         }
 
+    }
+
+    private void gameover(){
+        //context = com.Juggle2.Menu.this.getContext();
+        context.startActivity(new Intent(context, GameOver.class));
     }
 
     private void draw() {

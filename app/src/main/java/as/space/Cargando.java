@@ -24,12 +24,13 @@ public class Cargando extends Activity {
         Thread hilo = new Thread(){
             public void run(){
                 try{
-                    sleep(7000);
+                    sleep(6000);
                 }catch(InterruptedException e){
                     e.printStackTrace();
                 }finally{
                     Intent intentCarga = new Intent (Cargando.this, Inicio.class);
                     startActivity(intentCarga);
+
                     finish();
                 }
             }

@@ -27,7 +27,7 @@
         <pl.droidsonroids.gif.GifImageView
             android:layout_width="match_parent"
             android:layout_height="285dp"
-            android:src="@drawable/loading_gif"
+            android:src="@drawable/loading"
             android:background="@android:color/black" />
     </LinearLayout>
 </LinearLayout>
