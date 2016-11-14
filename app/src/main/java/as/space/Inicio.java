@@ -14,6 +14,7 @@ import android.view.View;
 import pl.droidsonroids.gif.GifImageView;
 
 import static as.space.R.layout.pantalla_inicio;
+import static java.lang.Thread.sleep;
 
 /**
  * Created by Pedro on 18/10/2016.
@@ -74,6 +75,11 @@ public class Inicio extends Activity {
                 spInicio.play(startGameID,1,1,1,0,1);
                 Intent iniciointent = new Intent(Inicio.this, MainActivity.class);
                 startActivity(iniciointent);
+                try {
+                    sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 System.exit(0);
             }
 

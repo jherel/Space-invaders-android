@@ -7,7 +7,6 @@ import android.media.AudioAttributes;
 import android.os.Bundle;
 
 import static as.space.R.layout.pantalla_carga;
-import static as.space.R.layout.pantalla_inicio;
 
 /**
  * Created by Pedro on 19/10/2016.

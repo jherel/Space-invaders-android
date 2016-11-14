@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import static as.space.R.layout.game_over;
+import static java.lang.Thread.sleep;
 
 /**
  * Created by Pedro on 13/11/2016.
@@ -24,7 +25,6 @@ import static as.space.R.layout.game_over;
 public class GameOver extends Activity {
     TextView volverJugar, puntuacion, salir;
     int contador = 0;
-    private final int FINAL = 3;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,10 +61,16 @@ public class GameOver extends Activity {
             }
         });
 
-        volverJugar.startAnimation(fadeIn);
-        puntuacion.startAnimation(fadeIn);
-        salir.startAnimation(fadeIn);
-
+        try{
+            volverJugar.startAnimation(fadeIn);
+            sleep(1000);
+            puntuacion.startAnimation(fadeIn);
+            sleep(1000);
+        }catch(InterruptedException e){
+            e.printStackTrace();
+        }finally{
+            salir.startAnimation(fadeIn);
+        }
 
         volverJugar.setOnClickListener(new View.OnClickListener() {
             @Override
