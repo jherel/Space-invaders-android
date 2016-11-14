@@ -23,6 +23,8 @@ import android.content.res.AssetManager;
 
 import java.io.IOException;
 
+import static java.lang.Thread.sleep;
+
 public class SpaceInvadersView extends SurfaceView implements Runnable {
 
     Context context;
@@ -78,6 +80,7 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
     private int playerExplodeID = -1;
     private int invaderExplodeID = -1;
     private int shootID;
+    private int gameoverID;
     private int damageShelterID = -1;
     private int uhID = -1;
     private int ohID = -1;
@@ -131,7 +134,7 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
         }
 
         shootID = soundPool.load(context,R.raw.shoot,1);
-
+        gameoverID = soundPool.load(context,R.raw.gameover,1);
 
         background = resizeImage(background, screenX ,screenY);
 
@@ -313,6 +316,12 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
         }
         // Did an invader bump into the edge of the screen
         if(lost){
+            soundPool.play(gameoverID, 1, 1, 1, 0, 1); // codigo anterior
+            try {
+                sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             gameover();
             System.exit(0);
             //prepareLevel();
@@ -321,6 +330,8 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
     }
 
     private void gameover(){
+
+
         //context = com.Juggle2.Menu.this.getContext();
         context.startActivity(new Intent(context, GameOver.class));
     }
