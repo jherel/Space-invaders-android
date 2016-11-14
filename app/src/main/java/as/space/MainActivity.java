@@ -36,4 +36,7 @@ public class MainActivity extends Activity {
         super.onPause();
         spaceInvadersView.pause();
     }
+
+
+
 }
