@@ -72,7 +72,7 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
     int numInvaders = 0;
 
     // The player's shelters are built from bricks
-    //private DefenceBrick[] bricks = new DefenceBrick[400];
+    private DefenceBrick[] bricks = new DefenceBrick[400];
     private int numBricks;
 
     // For sound FX
@@ -164,6 +164,16 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
             for(int row = 0; row < 5; row ++ ){
                 invaders[numInvaders] = new Invader(context, row, column, screenX, screenY);
                 numInvaders ++;
+            }
+        }
+        // Build the shelters
+        numBricks = 0;
+        for(int shelterNumber = 0; shelterNumber < 4; shelterNumber++){
+            for(int column = 0; column < 10; column ++ ) {
+                for (int row = 0; row < 5; row++) {
+                    bricks[numBricks] = new DefenceBrick(row, column, shelterNumber, screenX, screenY);
+                    numBricks++;
+                }
             }
         }
 
@@ -330,8 +340,6 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
     }
 
     private void gameover(){
-
-
         //context = com.Juggle2.Menu.this.getContext();
         context.startActivity(new Intent(context, GameOver.class));
     }
@@ -378,6 +386,14 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
                     canvas.drawRect(invadersBullets[i].getRect(), paint);
                 }
             }*/
+
+            // Draw the bricks if visible
+            for(int i = 0; i < numBricks; i++){
+                if(bricks[i].getVisibility()){
+                    paint.setColor(Color.argb(255, 89, 89, 89));
+                    canvas.drawRect(bricks[i].getRect(), paint);
+                }
+            }
 
             ourHolder.unlockCanvasAndPost(canvas);
         }
