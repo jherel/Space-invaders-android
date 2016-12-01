@@ -339,6 +339,41 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
             }
 
         }
+        // Has a player bullet hit a shelter brick
+        if(bullet.getStatus()){
+            for(int i = 0; i < numBricks; i++){
+                if(bricks[i].getVisibility()){
+                    if(RectF.intersects(bullet.getRect(), bricks[i].getRect())){
+                        // A collision has occurred
+                        bullet.setInactive();
+                        bricks[i].setInvisible();
+                        //soundPool.play(damageShelterID, 1, 1, 0, 0, 1);
+                    }
+                }
+            }
+        }
+        // Has an invader bullet hit the player ship
+        for(int i = 0; i < invadersBullets.length; i++){
+            if(invadersBullets[i].getStatus()){
+                if(RectF.intersects(playerShip.getRect(), invadersBullets[i].getRect())){
+                    invadersBullets[i].setInactive();
+                    gameover();
+                    System.exit(0);
+                    /*lives --;
+                    soundPool.play(playerExplodeID, 1, 1, 0, 0, 1);
+
+                    // Is it game over?
+                    if(lives == 0){
+                        paused = true;
+                        lives = 3;
+                        score = 0;
+                        prepareLevel();
+
+                    }
+                    */
+                }
+            }
+        }
 
         // Did an invader bump into the edge of the screen
         if (lost) {
@@ -352,6 +387,7 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
             System.exit(0);
             //prepareLevel();
         }
+
 
     }
 
