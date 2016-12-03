@@ -18,11 +18,9 @@ public class DefenceBrick {
 
         isVisible = true;
 
-        // Sometimes a bullet slips through this padding.
-        // Set padding to zero if this annoys you
         int brickPadding = 0;
 
-        // The number of shelters
+        // Número de bloques
         int shelterPadding = screenX / 9;
         int startHeight = screenY - (screenY /8 * 2);
 

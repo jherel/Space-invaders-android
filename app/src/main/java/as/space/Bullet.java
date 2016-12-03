@@ -18,11 +18,11 @@ public class Bullet {
     private RectF rect;
 
 
-    // Which way is it shooting
+    // Hacia dónde se dispara
     public final int UP = 0;
     public final int DOWN = 1;
 
-    // Going nowhere
+
     int heading = -1;
     float speed = 950;
 
@@ -72,20 +72,19 @@ public class Bullet {
             return true;
         }
 
-        // Bullet already active
+        // Bala activa
         return false;
     }
 
     public void update(long fps) {
 
-        // Just move up or down
+        // Mover arriba o abajo
         if (heading == UP) {
             y = y - speed / fps;
         } else {
             y = y + speed / fps;
         }
 
-        // Update rect
         rect.left = x;
         rect.right = x + width;
         rect.top = y;

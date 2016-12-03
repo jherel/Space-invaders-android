@@ -85,7 +85,7 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
     private int ohID = -1;
 
     //Puntuación
-    private int score = 0;
+    int score = 0;
     //Vidas
 
     // Cómo debe ser el sonido
@@ -167,7 +167,6 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
                 }
             }
         }
-
     }
 
     @Override
@@ -208,9 +207,9 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
                     // Alter value of uhOrOh
                     uhOrOh = !uhOrOh;
                 }
-            }
-        }
-    }
+            }// if !paused
+        }// while
+    }// run
 
     private void update() {
         // Si un enemigo ha chocado cona un lado de la pantalla
@@ -291,9 +290,9 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
                         //soundPool.play(invaderExplodeID, 1, 1, 0, 0, 1);
                         bullet.setInactive();
                         //prepareLevel();
-                        this.score = score + 10;
+                        score = score + 10;
 
-                        // Has the player won
+                        // Cuando el jugador gana
                         if(score == numInvaders * 10){
                             paused = true;
                             score = 0;
