@@ -26,6 +26,8 @@ public class GameOver extends Activity {
     TextView volverJugar, puntuacion, salir;
     int contador = 0;
 
+    private Inicio inicio = new Inicio();
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
@@ -103,8 +105,15 @@ public class GameOver extends Activity {
                             @Override
                             public void onClick(DialogInterface dialog,
                                                 int which) {
+                                try{
+                                    sleep(0);
+                                    inicio.cerrar.finish();
+                                }catch(InterruptedException e){
+                                    e.printStackTrace();
+                                }finally{
+                                    finish();
+                                }
                                 System.exit(0);
-                                //GameOver.this.finish();
                             }
                         });
                 dialog.setNegativeButton("No",

@@ -1,8 +1,6 @@
 package as.space;
-//Comentario de prueba - branch desarrollo
 
 import android.app.Activity;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Point;
 import android.media.AudioAttributes;

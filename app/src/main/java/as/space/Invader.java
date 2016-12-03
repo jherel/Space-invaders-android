@@ -16,34 +16,33 @@ public class Invader {
 
     Random generator = new Random();
 
-    // The player ship will be represented by a Bitmap
+    // El jugador se representa con Bitmap
     private Bitmap bitmap1;
     private Bitmap bitmap2;
 
-    // How long and high our paddle will be
+
     private float length;
     private float height;
 
-    // X is the far left of the rectangle which forms our paddle
+    // X controla los lados
     private float x;
 
-    // Y is the top coordinate
+    // Y controla el top
     private float y;
 
-    // This will hold the pixels per second speedthat the paddle will move
+    // Píxels por segundo a los que se mueve el paddle
     private float shipSpeed;
 
     public final int LEFT = 1;
     public final int RIGHT = 2;
 
-    // Is the ship moving and in which direction
+    // Movimiento y dirección del ship
     private int shipMoving = RIGHT;
 
     boolean isVisible;
 
     public Invader(Context context, int row, int column, int screenX, int screenY) {
 
-        // Initialize a blank RectF
         rect = new RectF();
 
         length = screenX / 20;
@@ -56,23 +55,21 @@ public class Invader {
         x = column * (length + padding);
         y = row * (length + padding/4);
 
-        // Initialize the bitmap
         bitmap1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.invader_1);
         bitmap2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.invader_2);
 
-        // stretch the first bitmap to a size appropriate for the screen resolution
+        // Ajustar el bitmap a un tamaño asociado ara la resolución de pantalla
         bitmap1 = Bitmap.createScaledBitmap(bitmap1,
                 (int) (length),
                 (int) (height),
                 false);
 
-        // stretch the first bitmap to a size appropriate for the screen resolution
         bitmap2 = Bitmap.createScaledBitmap(bitmap2,
                 (int) (length),
                 (int) (height),
                 false);
 
-        // How fast is the invader in pixels per second
+        // Velocidad de los invasores en pixeles por segundo
         shipSpeed = 80;
     }
     public void setInvisible(){
@@ -115,7 +112,6 @@ public class Invader {
             x = x + shipSpeed / fps;
         }
 
-        // Update rect which is used to detect hits
         rect.top = y;
         rect.bottom = y + height;
         rect.left = x;
@@ -128,8 +124,8 @@ public class Invader {
         }else{
             shipMoving = LEFT;
         }
-        //Invaders's block down 1 row (invader's height)
-        y = y + height;
+        // Los bloques bajan una columna (altura de los enemigos)
+        y = y + 30;
 
         shipSpeed = shipSpeed * 1.18f;
     }
@@ -137,11 +133,11 @@ public class Invader {
 
         int randomNumber = -1;
 
-        // If near the player
+        // Si está cerca del jugador
         if((playerShipX + playerShipLength > x &&
                 playerShipX + playerShipLength < x + length) || (playerShipX > x && playerShipX < x + length)) {
 
-            // A 1 in 500 chance to shoot
+
             randomNumber = generator.nextInt(150);
             if(randomNumber == 0) {
                 return true;
@@ -149,7 +145,7 @@ public class Invader {
 
         }
 
-        // If firing randomly (not near the player) a 1 in 5000 chance
+        // Si no está cerca del jugador
         randomNumber = generator.nextInt(2000);
         if(randomNumber == 0){
             return true;
