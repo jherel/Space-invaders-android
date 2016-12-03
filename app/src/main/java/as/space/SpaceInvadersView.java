@@ -85,7 +85,7 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
     private int ohID = -1;
 
     //Puntuación
-
+    private int score = 0;
     //Vidas
 
     // Cómo debe ser el sonido
@@ -151,8 +151,8 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
 
 
         numInvaders = 0;
-        for (int column = 0; column < 6; column++) {
-            for (int row = 0; row < 5; row++) {
+        for (int column = 0; column < 2; column++) {
+            for (int row = 0; row < 2; row++) {
                 invaders[numInvaders] = new Invader(context, row, column, screenX, screenY);
                 numInvaders++;
             }
@@ -227,7 +227,7 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
                 invaders[i].update(fps);
                 // Si quiere disparar
                 if (invaders[i].takeAim(playerShip.getX(), playerShip.getLength())) {
-                    // Haver una bala para el enemigo
+                    // Hacer una bala para el enemigo
                     if (invadersBullets[nextBullet].shoot(invaders[i].getX() + invaders[i].getLength() / 2, invaders[i].getY(), bullet.DOWN)) {
                         // Disparar y preparar para el próximo disparo
                         nextBullet++;
@@ -290,18 +290,18 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
                         invaders[i].setInvisible();
                         //soundPool.play(invaderExplodeID, 1, 1, 0, 0, 1);
                         bullet.setInactive();
-                        prepareLevel();
-                        /*score = score + 10;
+                        //prepareLevel();
+                        this.score = score + 10;
 
                         // Has the player won
                         if(score == numInvaders * 10){
                             paused = true;
                             score = 0;
-                            lives = 3;
+                            //lives = 3;
                             prepareLevel();
 
                         }
-                        */
+
                     } else if (RectF.intersects(bullet.getRect(), invaders[i].getRect())) {
                         invaders[i].setInvisible();
                         bullet.setInactive();
@@ -424,6 +424,11 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
                     canvas.drawRect(bricks[i].getRect(), paint);
                 }
             }
+
+            //Puntos
+            paint.setColor(Color.argb(255,  249, 129, 0));
+            paint.setTextSize(40);
+            canvas.drawText("Puntos: " + score, 10,50, paint);
 
             ourHolder.unlockCanvasAndPost(canvas);
         }
