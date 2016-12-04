@@ -397,9 +397,9 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
             for (int i = 0; i < numInvaders; i++) {
                 if (invaders[i].getVisibility()) {
                     if (uhOrOh) {
-                        canvas.drawBitmap(invaders[i].getBitmap(), invaders[i].getX(), invaders[i].getY(), paint);
+                        canvas.drawBitmap(invaders[i].getBitmap(), invaders[i].getX(), invaders[i].getY()+90, paint);
                     } else {
-                        canvas.drawBitmap(invaders[i].getBitmap2(), invaders[i].getX(), invaders[i].getY(), paint);
+                        canvas.drawBitmap(invaders[i].getBitmap2(), invaders[i].getX(), invaders[i].getY()+90, paint);
                     }
                 }
             }
@@ -425,7 +425,7 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
             }
 
             //Puntos
-            paint.setColor(Color.argb(255,  249, 129, 0));
+            paint.setColor(Color.argb(255,  255, 255, 255));
             paint.setTextSize(40);
             canvas.drawText("Puntos: " + score, 10,50, paint);
 
