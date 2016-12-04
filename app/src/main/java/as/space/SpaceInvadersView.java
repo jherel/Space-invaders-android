@@ -151,8 +151,8 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
 
 
         numInvaders = 0;
-        for (int column = 0; column < 2; column++) {
-            for (int row = 0; row < 2; row++) {
+        for (int column = 0; column < 5; column++) {
+            for (int row = 0; row < 4; row++) {
                 invaders[numInvaders] = new Invader(context, row, column, screenX, screenY);
                 numInvaders++;
             }
@@ -285,7 +285,7 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
         if (bullet.getStatus()) {
             for (int i = 0; i < numInvaders; i++) {
                 if (invaders[i].getVisibility()) {
-                    if ((RectF.intersects(bullet.getRect(), invaders[i].getRect())) && (numInvaders < 1)) {
+                    if ((RectF.intersects(bullet.getRect(), invaders[i].getRect())) /*&& (numInvaders < 1)*/) {
                         invaders[i].setInvisible();
                         //soundPool.play(invaderExplodeID, 1, 1, 0, 0, 1);
                         bullet.setInactive();
@@ -295,7 +295,7 @@ public class SpaceInvadersView extends SurfaceView implements Runnable {
                         // Cuando el jugador gana
                         if(score == numInvaders * 10){
                             paused = true;
-                            score = 0;
+                            //score = 0;
                             //lives = 3;
                             prepareLevel();
 
