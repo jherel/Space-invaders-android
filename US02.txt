@@ -1,2 +1,2 @@
-Este un fichero de prueba para crear nuevas ramas.
-Se corresponde a la feature US02
+Fichero correspondiente al feature US02
+v.2.0
