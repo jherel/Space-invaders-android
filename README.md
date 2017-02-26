@@ -1,3 +1,3 @@
 # Space-invaders-android
-Juego desarrollado para Android basado en Space Invaders, Procesos de Software 2016
+Juego de Space Invaders en Android para la asignatura Calidad Software de la URJC 2016-2017
 
