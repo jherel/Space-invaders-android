@@ -1,1 +1,2 @@
 Hola jugadores de Space Invaders!
+Estas son las instrucciones de juego!
