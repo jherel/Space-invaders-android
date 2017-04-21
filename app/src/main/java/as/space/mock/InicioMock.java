@@ -5,18 +5,31 @@ package as.space.mock;
  */
 
 public class InicioMock {
-    public boolean isUserInapp;
-    public boolean isUserInInicio;
-    public boolean isStartButtonPressed;
+    public boolean isUserInApp;
+    public boolean isUserInMainActivity;
+    public boolean isOptionButtonPressed;
+    public boolean isPlayButtonPressed;
+    public String[] optionMenu = {"Fondo de juego", "Skin aliada", "Skin enemiga"};
 
-    public InicioMock(){
-        this.isUserInapp= true;
-        this.isUserInInicio = true;
-        this.isStartButtonPressed = false;
+    public InicioMock() {
+        this.isUserInApp = true;
+        this.isUserInMainActivity = true;
+        this.isOptionButtonPressed = false;
+        this.isPlayButtonPressed = false;
     }
-    public String clickPlay(){
-        this.isStartButtonPressed=true;
+
+    public String clickOption() {
+        this.isOptionButtonPressed = true;
+        return "Option button successfully clicked";
+    }
+    public String clickPlay() {
+        this.isPlayButtonPressed = true;
         return "Play button successfully clicked";
+    }
+
+    @Override
+    public String toString() {
+        return this.optionMenu[0] + " | " + this.optionMenu[1] + " | " + this.optionMenu[2];
     }
 
 

@@ -11,7 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 
-import pl.droidsonroids.gif.GifImageView;
+//import pl.droidsonroids.gif.GifImageView;
 
 import static as.space.R.layout.pantalla_inicio;
 import static java.lang.Thread.sleep;
@@ -21,7 +21,7 @@ import static java.lang.Thread.sleep;
  */
 
 public class Inicio extends Activity {
-    GifImageView btnStart;
+   // GifImageView btnStart;
     SoundPool spInicio;
     MediaPlayer mediaPlayer;
 
@@ -48,7 +48,7 @@ public class Inicio extends Activity {
         setContentView(pantalla_inicio);
 
         mediaPlayer = MediaPlayer.create(this, R.raw.intromusic);
-        btnStart = (GifImageView) findViewById(R.id.gifStart);
+       // btnStart = (GifImageView) findViewById(R.id.gifStart);
 
         cerrar = this;
 
@@ -71,7 +71,7 @@ public class Inicio extends Activity {
         startGameID = spInicio.load(this, R.raw.playerexplode, 1);
 
 
-        btnStart.setOnClickListener(new View.OnClickListener() {
+       /* btnStart.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
@@ -89,6 +89,6 @@ public class Inicio extends Activity {
             }
 
 
-        });
+        });*/
     }
 }
