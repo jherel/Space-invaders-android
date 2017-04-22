@@ -21,7 +21,7 @@ import static java.lang.Thread.sleep;
  */
 
 public class Inicio extends Activity {
-   // GifImageView btnStart;
+    //GifImageView btnStart;
     SoundPool spInicio;
     MediaPlayer mediaPlayer;
 

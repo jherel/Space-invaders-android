@@ -6,16 +6,17 @@ package as.space.mock;
 
 public class InicioMock {
     public boolean isUserInApp;
-    public boolean isUserInMainActivity;
+    public boolean isUserInInicioActivity;
     public boolean isOptionButtonPressed;
     public boolean isPlayButtonPressed;
     public String[] optionMenu = {"Fondo de juego", "Skin aliada", "Skin enemiga"};
 
     public InicioMock() {
         this.isUserInApp = true;
-        this.isUserInMainActivity = true;
+        this.isUserInInicioActivity = true;
         this.isOptionButtonPressed = false;
         this.isPlayButtonPressed = false;
+
     }
 
     public String clickOption() {

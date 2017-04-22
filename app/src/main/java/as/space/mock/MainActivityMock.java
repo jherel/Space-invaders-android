@@ -6,23 +6,31 @@ package as.space.mock;
 
 public class MainActivityMock {
 
-    public boolean isUserInGameActivity;
+    public boolean isUserInMainActivity;
+    public boolean isOptionButtonPressed;
     public boolean isRightButtonClicked, isLeftButtonClicked, isMiddleButtonClicked;
     public int heigh, weight;
+
     public int[] space = {100, 50};
     public int[] ammo = {-1};
 
     public MainActivityMock() {
         this.heigh = 100;
         this.weight = 100;
-        this.isUserInGameActivity = true;
+        this.isUserInMainActivity = true;
         this.isRightButtonClicked = false;
         this.isLeftButtonClicked = false;
+        this.isOptionButtonPressed = false;
+
     }
 
     @Override
     public String toString() {
         return "Heigh: " + this.heigh + "\nWeight: " + this.weight + "\nShip position: " + this.toStringg();
+    }
+    public String clickOption() {
+        this.isOptionButtonPressed = true;
+        return "Option button successfully clicked";
     }
 
     public boolean pressRightButton() {

@@ -1,5 +1,6 @@
 package as.space;
 
+import as.space.mock.GameOverMock;
 import as.space.mock.InicioMock;
 import as.space.mock.MainActivityMock;
 import cucumber.api.java.Before;
@@ -15,34 +16,34 @@ public class BotonesSteps {
 
     private MainActivityMock mainActivity;
     private InicioMock inicio;
+    private GameOverMock gameOver;
 
     @Before
-    public void  before_test(){
-        this.mainActivity= new MainActivityMock();
-        this.inicio= new InicioMock();
+    public void before_test() {
+        this.mainActivity = new MainActivityMock();
+        this.inicio = new InicioMock();
+        this.gameOver = new GameOverMock();
 
     }
-    @Given("^principal screen in app$")
-    public void principal_screen_in_app(){
-        Boolean valor = this.inicio.isUserInMainActivity;
-        System.out.println(valor+"\n");
-    }
-    @When("^i tap the game button$")
-    public void i_tap_the_game_button() {
-        String valor = this.inicio.clickPlay();
-        System.out.println(valor);
-    }
-    @Then("^appears the game screen$")
-    public void appears_the_game_screen() {
-        Boolean valor = this.mainActivity.isUserInGameActivity;
-        System.out.println(valor+"\n\n");
-    }
+
     @Given("^gameplay screen$")
     public void gameplay_screen() {
         String valor = this.mainActivity.toString();
         System.out.println(valor);
     }
 
+
+    @When("^i tap the button in the middle of the screen$")
+    public void i_tap_the_button_in_the_middle_of_the_screen() {
+        Boolean valor = this.mainActivity.pressMiddleButton();
+        System.out.println(valor);
+    }
+
+    @Then("^the spaceship shoots a missile that moves vertically in the screen$")
+    public void the_spaceship_shoots_a_missile_that_moves_vertically_in_the_screen() {
+        String valor = this.mainActivity.releaseAmmo();
+        System.out.println(valor + "\n\n");
+    }
     @When("^i tap the right button in the screen$")
     public void i_tap_the_right_button_in_the_screen() {
         Boolean valor = this.mainActivity.pressRightButton();
@@ -65,17 +66,34 @@ public class BotonesSteps {
         String valor = this.mainActivity.moveSpaceToRight();
         System.out.println(valor+"\n\n");
     }
+    @Given("^principal screen in app$")
+    public void principal_screen_in_app() {
+        Boolean valor = this.mainActivity.isUserInMainActivity;
+        System.out.println(valor+"\n");
+    }
 
-    @When("^i tap the button in the middle of the screen$")
-    public void i_tap_the_button_in_the_middle_of_the_screen() {
-        Boolean valor = this.mainActivity.pressMiddleButton();
+    @When("^i tap on the option menu$")
+    public void i_tap_on_the_option_menu() {
+        String valor = this.mainActivity.clickOption();
         System.out.println(valor);
     }
 
-    @Then("^the spaceship shoots a missile that moves vertically in the screen$")
-    public void the_spaceship_shoots_a_missile_that_moves_vertically_in_the_screen() {
-        String valor = this.mainActivity.releaseAmmo();
+    @Then("^option menu opens$")
+    public void option_menu_opens() {
+        String valor = this.mainActivity.toString();
         System.out.println(valor+"\n\n");
     }
+    @When("^i tap the game button$")
+    public void i_tap_the_game_button() {
+        String valor = this.inicio.clickPlay();
+        System.out.println(valor);
+    }
+
+    @Then("^appears the game screen$")
+    public void appears_the_game_screen() {
+        Boolean valor = this.mainActivity.isUserInMainActivity;
+        System.out.println(valor+"\n\n");
+    }
+
 
 }
